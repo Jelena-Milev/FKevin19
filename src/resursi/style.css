@@ -2,7 +2,7 @@
     -fx-primary: #2940c2;
     -fx-secondary: #d49624;
     -fx-primary-text: #fcfbf7;
-    -fx-toggle-text: #333333;
+    -fx-toggle-text: #000000;
 }
 
 .root {
@@ -21,5 +21,10 @@
     -fx-background-insets: 0,1,2,3,0;
     -fx-text-fill: #654b00;
     -fx-padding: 10 20 10 20;
+}
+
+.text-field {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
 }
 
