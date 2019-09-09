@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FirstStartScreen">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../resursi/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FirstStartScreen">
    <children>
       <GridPane layoutY="-1.0" prefHeight="400.0" prefWidth="600.0">
         <columnConstraints>
@@ -39,12 +39,15 @@
                               <Image url="@../resursi/information.png" />
                            </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj pitanje" VBox.vgrow="ALWAYS">
+                        <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Imaš novo pitanje?" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="Montserrat Regular" size="18.0" />
                            </font>
                         </Text>
-                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Dodaj">
+                           <font>
+                              <Font name="Montserrat Regular" size="13.0" />
+                           </font></Button>
                      </children>
                   </VBox>
                   <VBox alignment="BASELINE_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
@@ -54,12 +57,15 @@
                               <Image url="@../resursi/clock-circular-outline.png" />
                            </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Izazov 2 minuta">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Izazov 2 minuta">
                            <font>
                               <Font name="Montserrat Regular" size="18.0" />
                            </font>
                         </Text>
-                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Oprobaj se">
+                           <font>
+                              <Font name="Montserrat Regular" size="13.0" />
+                           </font></Button>
                      </children>
                   </VBox>
                   <VBox alignment="BASELINE_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
@@ -69,12 +75,15 @@
                               <Image url="@../resursi/test.png" />
                            </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10 brzih pitanja">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="10 brzih pitanja">
                            <font>
                               <Font name="Montserrat Regular" size="18.0" />
                            </font>
                         </Text>
-                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Pokaži znanje">
+                           <font>
+                              <Font name="Montserrat Regular" size="13.0" />
+                           </font></Button>
                      </children>
                   </VBox>
                </children>
