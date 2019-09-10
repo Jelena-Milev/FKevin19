@@ -23,15 +23,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Label fx:id="pressKey" text="Pritisnite bilo koje dugme za pocetak..." textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.valignment="TOP">
-         <font>
-            <Font size="24.0" />
-         </font>
-         <padding>
-            <Insets top="200.0" />
-         </padding>
-      </Label>
-      <ImageView fitHeight="200" fitWidth="200" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <ImageView fx:id="orangePlanet" fitHeight="400" fitWidth="400" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <image>
             <Image url="@../img/planet.png" />
          </image>
@@ -46,7 +38,7 @@
             <Image url="@../img/fKevinHead.png" />
          </image>
       </ImageView>
-      <Button mnemonicParsing="false" prefHeight="500" text="Button" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button fx:id="pressSpace" onAction="#pressSpaceToContinue" mnemonicParsing="false" prefHeight="500" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
    </children>
    <!--<rowConstraints>-->

@@ -9,7 +9,9 @@
     -fx-background-image: url("/resources/img/background.png");
      -fx-background-size: 100% 100%;
 }
-
+#pressSpace{
+    -fx-background-color: transparent;
+}
 .button {
     -fx-background-color:
         linear-gradient(#ffd65b, #e68400),

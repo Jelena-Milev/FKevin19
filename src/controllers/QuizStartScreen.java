@@ -3,24 +3,29 @@ package controllers;
 
 import com.sun.xml.internal.bind.annotation.OverrideAnnotationOf;
 import javafx.animation.Animation;
+import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
 public class QuizStartScreen implements Initializable {
     @FXML private ImageView head;
+    @FXML private Button pressSpace;
+    @FXML private ImageView orangePlanet;
     private final double headWidth = 268;
     private final double headHeight = 190;
 
@@ -42,8 +47,21 @@ public class QuizStartScreen implements Initializable {
         transition.play();
     }
 
+    public void planetRotation(ImageView image){
+        RotateTransition rt = new RotateTransition(Duration.seconds(4), image);
+        rt.setByAngle(360);
+        rt.setCycleCount(Animation.INDEFINITE);
+        rt.setInterpolator(Interpolator.LINEAR);
+        rt.play();
+    }
+    public void pressSpaceToContinue(){
+        System.out.println("Space je pritisnut");
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         animationUpDown();
+        planetRotation(this.orangePlanet);
+        this.pressSpace.requestFocus();
     }
 }
