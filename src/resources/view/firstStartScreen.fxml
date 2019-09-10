@@ -36,7 +36,7 @@
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resursi/information.png" />
+                              <Image url="@../img/information.png" />
                            </image>
                         </ImageView>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj pitanje" VBox.vgrow="ALWAYS">
@@ -51,7 +51,7 @@
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resursi/clock-circular-outline.png" />
+                              <Image url="@../img/clock-circular-outline.png" />
                            </image>
                         </ImageView>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Izazov 2 minuta">
@@ -66,7 +66,7 @@
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resursi/test.png" />
+                              <Image url="@../img/test.png" />
                            </image>
                         </ImageView>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10 brzih pitanja">
@@ -81,7 +81,7 @@
             </GridPane>
             <ImageView fitHeight="141.0" fitWidth="561.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resursi/FKevin2.png" />
+                  <Image url="@../img/FKevin2.png" />
                </image>
             </ImageView>
          </children>
