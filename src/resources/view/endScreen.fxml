@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.control.Button?>
-<GridPane fx:id="endScreen" alignment="CENTER" gridLinesVisible="true" prefHeight="720" prefWidth="1280" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EndScreen">
+<GridPane fx:id="endScreenPane" alignment="CENTER" gridLinesVisible="true" prefHeight="720" prefWidth="1280" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EndScreen">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" percentWidth="100" />
         <ColumnConstraints halignment="CENTER" percentWidth="100" />

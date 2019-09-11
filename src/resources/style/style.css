@@ -13,11 +13,11 @@
     -fx-background-color: transparent;
 }
 
-#quizStart{
+#quizStartPane{
     -fx-background-image: url("backgroundStart.png");
 }
 
-#endScreen{
+#endScreenPane{
     -fx-background-image: url("backgroundEnd.png");
 }
 
