@@ -22,12 +22,18 @@ public class EndScreen implements Initializable {
     @FXML
     private ImageView orangePlanet;
 
+    private int points;
+
     public void delayForSceneChange() {
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(pauseEvent -> {
             stageService.fadeOut(endScreenPane, "resources/view/quizStartScreen.fxml");
         });
         delay.play();
+    }
+
+    public void setPoints(int receviedPoints){
+        this.points = receviedPoints;
     }
 
     @Override

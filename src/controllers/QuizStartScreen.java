@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import services.AnimationService;
 import services.StageService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

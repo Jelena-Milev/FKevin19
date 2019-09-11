@@ -1,7 +1,9 @@
 package services;
 
+import controllers.EndScreen;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -33,6 +35,12 @@ public class StageService {
         }
     }
 
+    public void changeSceneAndPassPoints(String nextScenePath, Pane rootPane, int points) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(nextScenePath));
+        Stage currentStage = (Stage) rootPane.getScene().getWindow();
+        currentStage.getScene().setRoot(loader.load());
+        ((EndScreen)loader.getController()).setPoints(points);
+    }
 
     public void fadeOut(Pane rootPane, String nextScenePath){
         FadeTransition fade = new FadeTransition();
