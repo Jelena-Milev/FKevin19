@@ -12,6 +12,16 @@
 #pressSpace{
     -fx-background-color: transparent;
 }
+
+#quizStart{
+    -fx-background-image: url("backgroundStart.png");
+}
+
+#endScreen{
+    -fx-background-image: url("backgroundEnd.png");
+}
+
+
 .button {
     -fx-background-color:
         linear-gradient(#ffd65b, #e68400),

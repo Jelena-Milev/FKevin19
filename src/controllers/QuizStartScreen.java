@@ -2,15 +2,13 @@ package controllers;
 
 
 import com.sun.xml.internal.bind.annotation.OverrideAnnotationOf;
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.PathTransition;
-import javafx.animation.RotateTransition;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -26,6 +24,7 @@ public class QuizStartScreen implements Initializable {
     @FXML private ImageView head;
     @FXML private Button pressSpace;
     @FXML private ImageView orangePlanet;
+    @FXML private GridPane quizStart;
     private final double headWidth = 268;
     private final double headHeight = 190;
 
@@ -57,9 +56,21 @@ public class QuizStartScreen implements Initializable {
     public void pressSpaceToContinue(){
         System.out.println("Space je pritisnut");
     }
+    public void fadeIn(){
+        FadeTransition fade = new FadeTransition();
+        fade.setDuration(Duration.seconds(1));
+        fade.setNode(quizStart);
+        fade.setFromValue(0);
+        fade.setToValue(1);
+//        fade.setOnFinished(event -> {
+//
+//        });
+        fade.play();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        fadeIn();
         animationUpDown();
         planetRotation(this.orangePlanet);
         this.pressSpace.requestFocus();
