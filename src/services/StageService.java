@@ -2,6 +2,7 @@ package services;
 
 import controllers.EndScreen;
 import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -31,6 +32,16 @@ public class StageService {
 
             currentStage.getScene().setRoot(parent);
         } catch (IOException e){
+            System.out.println(e.getStackTrace());
+        }
+    }
+
+    public void changeScene(String newScenePath, ActionEvent event) {
+        try {
+            Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(newScenePath));
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.getScene().setRoot(parent);
+        } catch (IOException e) {
             System.out.println(e.getStackTrace());
         }
     }

@@ -32,8 +32,8 @@ public class EndScreen implements Initializable {
         delay.play();
     }
 
-    public void setPoints(int receviedPoints){
-        this.points = receviedPoints;
+    public void setPoints(int receivedPoints){
+        this.points = receivedPoints;
     }
 
     @Override
