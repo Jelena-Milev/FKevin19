@@ -1,11 +1,10 @@
 package controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXProgressBar;
-import com.jfoenix.controls.JFXToggleButton;
+import com.jfoenix.controls.*;
 import com.sun.xml.internal.ws.api.FeatureConstructor;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
@@ -37,13 +36,16 @@ public class Questions implements Initializable {
     private JFXToggleButton answerFour;
 
     @FXML
-    private TextArea questionText;
+    private JFXTextArea questionText;
 
     @FXML
     private JFXProgressBar progressBar;
 
     @FXML
     private JFXButton nextButton;
+
+    @FXML
+    private JFXTextField guessedAnswer;
 
     private List<ClosedQuestion> questions;
     private int index = 0;
@@ -53,6 +55,21 @@ public class Questions implements Initializable {
         this.answerTwo.setText("");
         this.answerThree.setText("");
         this.answerFour.setText("");
+    }
+
+    private void deselectButtons() {
+        this.answerOne.setSelected(false);
+        this.answerTwo.setSelected(false);
+        this.answerThree.setSelected(false);
+        this.answerFour.setSelected(false);
+    }
+
+    public void buttonToggled(ActionEvent event) {
+        JFXToggleButton selectedButton = (JFXToggleButton) event.getTarget();
+        this.questions.get(index).setGuessedAnswer(selectedButton.getText());
+        this.guessedAnswer.setText(selectedButton.getText());
+        this.deselectButtons();
+        selectedButton.setSelected(true);
     }
 
     private void loadQuestion(ClosedQuestion question) {
@@ -84,7 +101,7 @@ public class Questions implements Initializable {
         final IntegerProperty i = new SimpleIntegerProperty(0);
         Timeline timeline = new Timeline();
         KeyFrame keyFrame = new KeyFrame(
-                Duration.millis(40),
+                Duration.millis(30),
                 event -> {
                     if (i.get() > questionText.length()) {
                         timeline.stop();
@@ -107,8 +124,19 @@ public class Questions implements Initializable {
         this.answerOne.setDisableVisualFocus(true);
     }
 
+    private void progressBarCountdown() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
+                new KeyFrame(Duration.minutes(2), e -> {
+
+                }, new KeyValue(progressBar.progressProperty(), 1))
+        );
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        this.guessedAnswer.setVisible(false);
+        this.resetComponents();
+        this.bindNextButton();
     }
 }
