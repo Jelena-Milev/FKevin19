@@ -126,17 +126,21 @@ public class Questions implements Initializable {
 
     private void progressBarCountdown() {
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
+                new KeyFrame(Duration.ZERO, new KeyValue(this.progressBar.progressProperty(), 0)),
                 new KeyFrame(Duration.minutes(2), e -> {
 
-                }, new KeyValue(progressBar.progressProperty(), 1))
+                }, new KeyValue(this.progressBar.progressProperty(), 1))
         );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.guessedAnswer.setVisible(false);
-        this.resetComponents();
         this.bindNextButton();
+        this.questionText.setMouseTransparent(true);
+        this.questionText.setFocusTraversable(true);
+        this.progressBarCountdown();
     }
 }
