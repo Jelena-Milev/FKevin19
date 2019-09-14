@@ -42,7 +42,7 @@
 
 .text-area *.text {
     -fx-text-alignment: center;
-    -fx-text-fill: -fx-primary-text;
+    -fx-text-fill: white;
 }
 
 .text-area{
@@ -52,6 +52,9 @@
 
 .jfx-progress-bar > .bar{
     -fx-background-color: -fx-secondary;
+    -fx-padding: 0.75em;
+    -fx-background-insets: 3 3 4 3;
+    -fx-background-radius: 2;
 }
 
 .toggle-button:selected {

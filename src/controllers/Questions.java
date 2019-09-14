@@ -157,13 +157,18 @@ public class Questions implements Initializable {
             questions[i] = new ClosedQuestion();
             questions[i].setQuestion("Prvo probno sa la la la la la pitanje "+i);
             questions[i].setDifficulty(Resources.QuestionDifficulty.HIG);
+            questions[i].setCorrectAnswer("ponudjeni odg 4");
             String[] pa = new String[3];
             pa[0] = "ponudjeni odg 1";
             pa[1] = "ponudjeni odg 2";
             pa[2] = "ponudjeni odg 3";
             questions[i].setPossibleAnswers(pa);
-            questions[i].setCorrectAnswer("ponudjeni odg 4");
         }
+    }
+
+    public void onNextButtonClicked(ActionEvent event) {
+        ++this.index;
+        this.displayQuestion();
     }
 
     private int totalNumberOfPoints() {
