@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -27,10 +28,14 @@
   </rowConstraints>
    <children>
       <ImageView fitHeight="88.0" fitWidth="425.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-      <JFXTextArea fx:id="questionText" focusColor="BLACK" prefHeight="113.0" prefWidth="417.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <JFXTextArea fx:id="questionText" editable="false" focusColor="BLACK" prefHeight="113.0" prefWidth="417.0" stylesheets="@../style/style.css" unFocusColor="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <font>
             <Font name="Montserrat Regular" size="18.0" />
-         </font></JFXTextArea>
+         </font>
+          <effect>
+              <Blend />
+          </effect>
+      </JFXTextArea>
       <JFXToggleButton fx:id="answerOne" onAction="#buttonToggled" textFill="WHITE" toggleColor="#00118f" toggleLineColor="#6372a8" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
          <font>
             <Font name="Montserrat Regular" size="18.0" />
