@@ -11,9 +11,9 @@
 
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" stylesheets="@../style/style.css" fx:controller="controllers.FirstStartScreen" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+     <ColumnConstraints halignment="CENTER" percentWidth="100" />
+     <ColumnConstraints halignment="CENTER" percentWidth="100" />
+     <ColumnConstraints halignment="CENTER" percentWidth="100" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="98.0" vgrow="SOMETIMES" />
