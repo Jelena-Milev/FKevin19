@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.util.Duration;
 import resources.entities.ClosedQuestion;
+import resources.entities.Resources;
 
 import java.awt.*;
 import java.net.URL;
@@ -47,7 +48,7 @@ public class Questions implements Initializable {
     @FXML
     private JFXTextField guessedAnswer;
 
-    private List<ClosedQuestion> questions;
+    private ClosedQuestion[] questions = new ClosedQuestion[100];
     private int index = 0;
 
     private void resetComponents() {
@@ -66,7 +67,8 @@ public class Questions implements Initializable {
 
     public void buttonToggled(ActionEvent event) {
         JFXToggleButton selectedButton = (JFXToggleButton) event.getTarget();
-        this.questions.get(index).setGuessedAnswer(selectedButton.getText());
+        //this.questions.get(index).setGuessedAnswer(selectedButton.getText());
+        this.questions[index].setGuessedAnswer(selectedButton.getText());
         this.guessedAnswer.setText(selectedButton.getText());
         this.deselectButtons();
         selectedButton.setSelected(true);
@@ -101,7 +103,7 @@ public class Questions implements Initializable {
         final IntegerProperty i = new SimpleIntegerProperty(0);
         Timeline timeline = new Timeline();
         KeyFrame keyFrame = new KeyFrame(
-                Duration.millis(30),
+                Duration.millis(40),
                 event -> {
                     if (i.get() > questionText.length()) {
                         timeline.stop();
@@ -117,11 +119,15 @@ public class Questions implements Initializable {
     }
 
     private void displayQuestion() {
-        ClosedQuestion question = this.questions.get(this.index);
+        ClosedQuestion question = this.questions[this.index];
+        //ClosedQuestion question = this.questions.get(this.index);
         this.resetComponents();
         this.loadQuestionText(question);
         this.loadQuestion(question);
         this.answerOne.setDisableVisualFocus(true);
+        if (index == 0) {
+            this.progressBarCountdown();
+        }
     }
 
     private void progressBarCountdown() {
@@ -137,10 +143,46 @@ public class Questions implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.setTestQuestions();
         this.guessedAnswer.setVisible(false);
         this.bindNextButton();
         this.questionText.setMouseTransparent(true);
         this.questionText.setFocusTraversable(true);
-        this.progressBarCountdown();
+        this.displayQuestion();
+    }
+
+    private void setTestQuestions(){
+        this.questions = new ClosedQuestion[100];
+        for (int i=0;i<100;i++) {
+            questions[i] = new ClosedQuestion();
+            questions[i].setQuestion("Prvo probno sa la la la la la pitanje "+i);
+            questions[i].setDifficulty(Resources.QuestionDifficulty.HIG);
+            String[] pa = new String[3];
+            pa[0] = "ponudjeni odg 1";
+            pa[1] = "ponudjeni odg 2";
+            pa[2] = "ponudjeni odg 3";
+            questions[i].setPossibleAnswers(pa);
+            questions[i].setCorrectAnswer("ponudjeni odg 4");
+        }
+    }
+
+    private int totalNumberOfPoints() {
+        int total = 0;
+        for (ClosedQuestion q: questions) {
+            if (q.getGuessedAnswer() == null) {
+                break;
+            }
+            if (q.getGuessedAnswer().equals(q.getCorrectAnswer())) {
+                switch (q.getDifficulty()) {
+                    case LOW:
+                        total += Resources.lowDifficultyQuestionPoints;
+                    case MED:
+                        total += Resources.medDifficultyQuestionPoints;
+                    case HIG:
+                        total += Resources.higDifficultyQuestionPoints;
+                }
+            }
+        }
+        return total;
     }
 }
