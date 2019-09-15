@@ -42,12 +42,17 @@
 
 .text-area *.text {
     -fx-text-alignment: center;
+    -fx-text-align: center;
 }
 
 .text-area{
     -fx-control-inner-background: -fx-primary-text;
     -fx-border-color: orange;
     -fx-color: orange;
+}
+
+.text-area, .text-area .viewport, .text-area .content {
+    -fx-text-fill: orange;
 }
 
 .jfx-progress-bar > .bar{
