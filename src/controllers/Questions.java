@@ -180,6 +180,7 @@ public class Questions implements Initializable {
     public void onNextButtonClicked(ActionEvent event) {
         ++this.index;
         this.displayQuestion();
+        this.deselectButtons();
     }
 
     private int totalNumberOfPoints() {
