@@ -66,3 +66,12 @@
     -fx-background-color: -fx-secondary;
 }
 
+.button:active {
+  background-color: #ab800c;
+  transform: translateY(4px);
+}
+
+.button:hover {
+    background-color: #ab800c;
+}
+
