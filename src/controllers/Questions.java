@@ -12,11 +12,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import resources.entities.ClosedQuestion;
 import resources.entities.Resources;
+import services.StageService;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Time;
 import java.util.*;
@@ -48,8 +51,12 @@ public class Questions implements Initializable {
     @FXML
     private JFXTextField guessedAnswer;
 
+    @FXML
+    private GridPane questionsPane;
+
     private ClosedQuestion[] questions = new ClosedQuestion[100];
     private int index = 0;
+    private StageService stageService = StageService.getStageService();
 
     private void resetComponents() {
         this.answerOne.setText("");
@@ -134,7 +141,11 @@ public class Questions implements Initializable {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(this.progressBar.progressProperty(), 0)),
                 new KeyFrame(Duration.minutes(2), e -> {
-
+                    try {
+                        stageService.changeSceneAndPassPoints2("resources/view/userInfo.fxml", questionsPane, this.totalNumberOfPoints());
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }, new KeyValue(this.progressBar.progressProperty(), 1))
         );
         timeline.setCycleCount(Animation.INDEFINITE);
