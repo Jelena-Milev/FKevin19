@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="quizStartPane" alignment="CENTER" gridLinesVisible="true" opacity="0.0" prefHeight="720" prefWidth="1280" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.QuizStartScreen">
+<GridPane fx:id="quizStartPane" alignment="CENTER" gridLinesVisible="false" opacity="0.0" prefHeight="720" prefWidth="1280" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.QuizStartScreen">
    <columnConstraints>
       <ColumnConstraints halignment="CENTER" percentWidth="100" />
       <ColumnConstraints halignment="CENTER" percentWidth="100" />

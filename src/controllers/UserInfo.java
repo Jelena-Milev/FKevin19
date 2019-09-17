@@ -67,7 +67,7 @@ public class UserInfo implements Initializable {
 
     public void saveParticipantInfo() {
         try {
-            fis = new FileInputStream("Participants.xlsx");
+            fis = new FileInputStream("src/resources/entities/Participants.xlsx");
             wb = WorkbookFactory.create(fis);
             sh = wb.getSheet("Sheet1");
             lastRow = sh.getLastRowNum();
@@ -83,7 +83,7 @@ public class UserInfo implements Initializable {
             cell3.setCellValue(email.getText());
             cell4.setCellValue(phone.getText());
 
-            fos = new FileOutputStream("Participant.xslx");
+            fos = new FileOutputStream("src/resources/entities/Participants.xlsx");
             wb.write(fos);
             fos.flush();
             fos.close();
