@@ -47,11 +47,17 @@ public class StageService {
         }
     }
 
-    public void changeSceneAndPassPoints(String nextScenePath, Pane rootPane, int points) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(nextScenePath));
-        Stage currentStage = (Stage) rootPane.getScene().getWindow();
-        currentStage.getScene().setRoot(loader.load());
-        ((EndScreen)loader.getController()).setPoints(points);
+    public void changeSceneAndPassPoints(String newScenePath, ActionEvent event, int points) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(newScenePath));
+            Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(newScenePath));
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.getScene().setRoot(parent);
+            loader.load();
+            ((EndScreen) loader.getController()).setPoints(points);
+        } catch (IOException e) {
+            System.out.println(e.getStackTrace());
+        }
     }
 
     public void changeSceneAndPassPoints2(String nextScenePath, Pane rootPane, int points) throws IOException {

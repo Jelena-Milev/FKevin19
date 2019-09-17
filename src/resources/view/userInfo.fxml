@@ -51,7 +51,7 @@
                   <Font name="Montserrat Regular" size="15.0" />
                </font>
             </JFXTextField>
-            <JFXButton fx:id="endButton" alignment="CENTER" text="Pošalji">
+            <JFXButton fx:id="endButton" onAction="#onEndButtonClicked" alignment="CENTER" text="Pošalji">
                <font>
                   <Font name="Montserrat Regular" size="20.0" />
                </font>
