@@ -32,13 +32,13 @@ public class UserInfo implements Initializable {
     private JFXTextField phone;
 
     @FXML
-    private JFXButton endBtn;
+    private JFXButton endButton;
 
     private int totalPoints;
 
 
     private void bindEndButton() {
-        this.endBtn.disableProperty().bind(Bindings.isEmpty(name.textProperty())
+        this.endButton.disableProperty().bind(Bindings.isEmpty(name.textProperty())
                 .or(Bindings.isEmpty(surname.textProperty()))
                 .or(Bindings.isEmpty(email.textProperty()))
         );
@@ -89,7 +89,7 @@ public class UserInfo implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        this.bindEndButton();
+        this.bindEndButton();
     }
 
 }
