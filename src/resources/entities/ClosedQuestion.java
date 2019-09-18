@@ -1,5 +1,7 @@
 package resources.entities;
 
+import resources.Resources;
+
 public class ClosedQuestion {
 
     private String question;

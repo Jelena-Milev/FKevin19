@@ -1,11 +1,17 @@
-package resources.entities;
+package resources;
 
 public class Resources {
-    private Resources(){}
+
+    // #TODO set this to the location the application is running from, dynamically
+    public static final String APP_LOCATION = "";
+
+    public static final String DATA_LOCATION = APP_LOCATION + "data/";
 
     public static int lowDifficultyQuestionPoints = 1;
     public static int medDifficultyQuestionPoints = 3;
     public static int higDifficultyQuestionPoints = 5;
+
+    public static String participantPath;
 
     public enum QuestionDifficulty {
         LOW (lowDifficultyQuestionPoints),
@@ -22,7 +28,4 @@ public class Resources {
             return this.points;
         }
     }
-
-
-
 }

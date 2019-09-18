@@ -1,7 +1,6 @@
 package controllers;
 
 import com.jfoenix.controls.*;
-import com.sun.xml.internal.ws.api.FeatureConstructor;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -15,13 +14,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import resources.entities.ClosedQuestion;
-import resources.entities.Resources;
+import resources.Resources;
 import services.StageService;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Time;
 import java.util.*;
 import java.util.List;
 
@@ -57,6 +54,16 @@ public class Questions implements Initializable {
     private ClosedQuestion[] questions = new ClosedQuestion[100];
     private int index = 0;
     private StageService stageService = StageService.getStageService();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.setTestQuestions();
+        this.guessedAnswer.setVisible(false);
+        this.bindNextButton();
+        this.questionText.setMouseTransparent(true);
+        this.questionText.setFocusTraversable(true);
+        this.displayQuestion();
+    }
 
     private void resetComponents() {
         this.answerOne.setText("");
@@ -95,14 +102,16 @@ public class Questions implements Initializable {
     }
 
     private void bindNextButton() {
-        this.nextButton.disableProperty().bind(Bindings.createBooleanBinding(this::checkIfSelected));
+//        this.nextButton.disableProperty().bind(Bindings.createBooleanBinding(this::checkIfSelected));
+        this.nextButton.disableProperty().bind(Bindings.not(answerOne.selectedProperty().or(answerTwo.selectedProperty().or(answerThree.selectedProperty().or(answerFour.selectedProperty())))));
     }
 
     private boolean checkIfSelected() {
         if (answerOne.isSelected() || answerTwo.isSelected() || answerThree.isSelected() || answerFour.isSelected()) {
+            return false;
+        }else{
             return true;
         }
-        return false;
     }
 
     private void loadQuestionText(ClosedQuestion question) {
@@ -140,26 +149,16 @@ public class Questions implements Initializable {
     private void progressBarCountdown() {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(this.progressBar.progressProperty(), 0)),
-                new KeyFrame(Duration.minutes(2), e -> {
+                new KeyFrame(Duration.seconds(30), e -> {
                     try {
-                        stageService.changeSceneAndPassPoints2("resources/view/userInfo.fxml", questionsPane, this.totalNumberOfPoints());
+                        stageService.changeSceneAndPassPointsToUserInfoScreen("resources/view/userInfo.fxml", questionsPane, this.totalNumberOfPoints());
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
                 }, new KeyValue(this.progressBar.progressProperty(), 1))
         );
-        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.setCycleCount(1);
         timeline.play();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.setTestQuestions();
-        this.guessedAnswer.setVisible(false);
-        this.bindNextButton();
-        this.questionText.setMouseTransparent(true);
-        this.questionText.setFocusTraversable(true);
-        this.displayQuestion();
     }
 
     private void setTestQuestions(){

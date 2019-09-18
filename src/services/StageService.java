@@ -17,23 +17,31 @@ import java.io.IOException;
 
 public class StageService {
     private static StageService stageService;
+
     private StageService() {
     }
 
-    public static StageService getStageService(){
-        if(stageService==null)
-            stageService=new StageService();
+    public static StageService getStageService() {
+        if (stageService == null)
+            stageService = new StageService();
         return stageService;
     }
 
     public void changeScene(String newScenePath, Scene currentScene) {
         try {
+            System.out.println("\n\n"+newScenePath);
             Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(newScenePath));
+            boolean isParentNull = parent==null;
+            System.out.println("Parent null? "+isParentNull);
+            boolean isCurrentScene = currentScene==null;
+            System.out.println("currentScene null? "+isCurrentScene);
             Stage currentStage = (Stage) currentScene.getWindow();
+            boolean third = currentStage==null;
+            System.out.println("currentStage null? "+third);
 
             currentStage.getScene().setRoot(parent);
-        } catch (IOException e){
-            System.out.println(e.getStackTrace());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -43,11 +51,11 @@ public class StageService {
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.getScene().setRoot(parent);
         } catch (IOException e) {
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 
-    public void changeSceneAndPassPoints(String newScenePath, ActionEvent event, int points) {
+    public void changeSceneAndPassPointsToEndScreen(String newScenePath, ActionEvent event, int points) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(newScenePath));
             Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(newScenePath));
@@ -56,36 +64,39 @@ public class StageService {
             loader.load();
             ((EndScreen) loader.getController()).setPoints(points);
         } catch (IOException e) {
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 
-    public void changeSceneAndPassPoints2(String nextScenePath, Pane rootPane, int points) throws IOException {
+    public void changeSceneAndPassPointsToUserInfoScreen(String nextScenePath, Pane rootPane, int points) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(nextScenePath));
         Stage currentStage = (Stage) rootPane.getScene().getWindow();
         currentStage.getScene().setRoot(loader.load());
-        ((UserInfo)loader.getController()).setTotalPoints(points);
+        ((UserInfo) loader.getController()).setTotalPoints(points);
     }
 
-    public void fadeOut(Pane rootPane, String nextScenePath){
+    public void fadeOut(Pane rootPane, String nextScenePath) {
         FadeTransition fade = new FadeTransition();
         fade.setDuration(Duration.millis(500));
         fade.setNode(rootPane);
         fade.setFromValue(1);
         fade.setToValue(0);
-        fade.setOnFinished(event ->
-                changeScene(nextScenePath, rootPane.getScene())
+        fade.setOnFinished(event -> {
+                    changeScene(nextScenePath, rootPane.getScene());
+                }
         );
-        fade.play();
+        fade.playFromStart();
+        fade.setCycleCount(1);
     }
 
-    public void fadeIn(Pane rootPane){
+    public void fadeIn(Pane rootPane) {
         FadeTransition fade = new FadeTransition();
         fade.setDuration(Duration.seconds(1));
         fade.setNode(rootPane);
         fade.setFromValue(0);
         fade.setToValue(1);
-        fade.play();
+        fade.playFromStart();
+        fade.setCycleCount(1);
     }
 
 }
