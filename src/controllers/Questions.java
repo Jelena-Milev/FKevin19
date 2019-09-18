@@ -154,7 +154,7 @@ public class Questions implements Initializable {
     private void progressBarCountdown() {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(this.progressBar.progressProperty(), 0)),
-                new KeyFrame(Duration.seconds(30), e -> {
+                new KeyFrame(Duration.minutes(2), e -> {
                     try {
                         stageService.changeSceneAndPassPointsToUserInfoScreen("resources/view/userInfo.fxml", questionsPane, this.totalNumberOfPoints());
                     } catch (IOException ex) {
