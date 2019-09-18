@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import resources.entities.ClosedQuestion;
 import resources.Resources;
+import services.QuestionService;
 import services.StageService;
 
 import java.io.IOException;
@@ -54,10 +55,16 @@ public class Questions implements Initializable {
     private ClosedQuestion[] questions = new ClosedQuestion[100];
     private int index = 0;
     private StageService stageService = StageService.getStageService();
+    private QuestionService questionService = QuestionService.getQuestionServiceInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.setTestQuestions();
+        this.questions = this.questionService.getRandomQuestions();
+        for (ClosedQuestion q: questions) {
+            System.out.println(q);
+        }
+        System.out.println("\n\n\n");
+//        this.setTestQuestions();
         this.guessedAnswer.setVisible(false);
         this.bindNextButton();
         this.questionText.setMouseTransparent(true);
@@ -83,12 +90,13 @@ public class Questions implements Initializable {
         JFXToggleButton selectedButton = (JFXToggleButton) event.getTarget();
         //this.questions.get(index).setGuessedAnswer(selectedButton.getText());
         this.questions[index].setGuessedAnswer(selectedButton.getText());
+        System.out.println(index+". pitanje quessed answer "+questions[index].getGuessedAnswer()+"\n");
         this.guessedAnswer.setText(selectedButton.getText());
         this.deselectButtons();
         selectedButton.setSelected(true);
     }
 
-    private void loadQuestion(ClosedQuestion question) {
+    private void loadQuestionAnswers(ClosedQuestion question) {
         List<String> answers = new ArrayList<>();
         String[] possibleAnswers = question.getPossibleAnswers();
         answers.addAll(Arrays.asList(possibleAnswers));
@@ -115,7 +123,7 @@ public class Questions implements Initializable {
     }
 
     private void loadQuestionText(ClosedQuestion question) {
-        String questionText = question.getQuestion();
+        String questionText = question.getQuestionText();
         final IntegerProperty i = new SimpleIntegerProperty(0);
         Timeline timeline = new Timeline();
         KeyFrame keyFrame = new KeyFrame(
@@ -139,7 +147,7 @@ public class Questions implements Initializable {
         //ClosedQuestion question = this.questions.get(this.index);
         this.resetComponents();
         this.loadQuestionText(question);
-        this.loadQuestion(question);
+        this.loadQuestionAnswers(question);
         this.answerOne.setDisableVisualFocus(true);
         if (index == 0) {
             this.progressBarCountdown();
@@ -165,8 +173,8 @@ public class Questions implements Initializable {
         this.questions = new ClosedQuestion[100];
         for (int i=0;i<100;i++) {
             questions[i] = new ClosedQuestion();
-            questions[i].setQuestion("Prvo probno sa la la la la la pitanje "+i);
-            questions[i].setDifficulty(Resources.QuestionDifficulty.HIG);
+            questions[i].setQuestionText("Prvo probno sa la la la la la pitanje "+i);
+            questions[i].setDifficulty(Resources.QuestionDifficulty.HIGH);
             questions[i].setCorrectAnswer("ponudjeni odg 4");
             String[] pa = new String[3];
             pa[0] = "ponudjeni odg 1";
@@ -184,7 +192,8 @@ public class Questions implements Initializable {
 
     private int totalNumberOfPoints() {
         int total = 0;
-        for (ClosedQuestion q: questions) {
+        for (ClosedQuestion q: this.questions) {
+            System.out.println(q);
             if (q.getGuessedAnswer() == null) {
                 break;
             }
@@ -192,9 +201,9 @@ public class Questions implements Initializable {
                 switch (q.getDifficulty()) {
                     case LOW:
                         total += Resources.lowDifficultyQuestionPoints;
-                    case MED:
+                    case MEDIUM:
                         total += Resources.medDifficultyQuestionPoints;
-                    case HIG:
+                    case HIGH:
                         total += Resources.higDifficultyQuestionPoints;
                 }
             }

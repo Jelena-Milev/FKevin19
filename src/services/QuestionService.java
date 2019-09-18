@@ -2,6 +2,7 @@ package services;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import resources.Resources;
 import resources.entities.ClosedQuestion;
 
 import java.io.FileNotFoundException;
@@ -12,6 +13,10 @@ import java.util.Random;
 public class QuestionService {
 
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    private final String fileName = "Questions.json";
+
+    private final int numberOfQuestions = 20;
 
     private static QuestionService questionService;
 
@@ -25,10 +30,10 @@ public class QuestionService {
         return questionService;
     }
 
-    public ClosedQuestion[] getRandomQuestions(int howManyQuestions){
-        ClosedQuestion[] allQuestions = this.getQuestions();
+    public ClosedQuestion[] getRandomQuestions(){
+        ClosedQuestion[] allQuestions = this.getClosedQuestions();
 
-        int[] randomIndexes = this.getRandomNumbers(howManyQuestions, allQuestions.length);
+        int[] randomIndexes = this.getRandomNumbers(this.numberOfQuestions, allQuestions.length);
 
         ClosedQuestion[] randomQuestions = new ClosedQuestion[randomIndexes.length];
 
@@ -38,7 +43,7 @@ public class QuestionService {
         return randomQuestions;
     }
 
-    private ClosedQuestion[] getQuestions() {
+    private ClosedQuestion[] getClosedQuestions() {
         JsonArray jsonQuestions = this.getJsonQuestions();
         ClosedQuestion[] questions;
         if (jsonQuestions == null) {
@@ -46,12 +51,13 @@ public class QuestionService {
         } else {
             questions = gson.fromJson(jsonQuestions, ClosedQuestion[].class);
         }
+
         return questions;
     }
 
     private JsonArray getJsonQuestions() {
         JsonArray jsonQuestions = null;
-        try (JsonReader reader = new JsonReader(new FileReader("/home/jeca/IdeaProjects/Git/CatchMeIfYouCan/Server_side/data/questions.json"))) {
+        try (JsonReader reader = new JsonReader(new FileReader(Resources.DATA_LOCATION+this.fileName))) {
             JsonElement fileContent = gson.fromJson(reader, JsonObject.class);
                 jsonQuestions = fileContent.getAsJsonObject().get("ClosedQuestions").getAsJsonArray();
         } catch (FileNotFoundException e) {
@@ -81,8 +87,4 @@ public class QuestionService {
         }
         return false;
     }
-
-
-
-
 }

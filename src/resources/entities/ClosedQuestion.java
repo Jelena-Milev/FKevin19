@@ -2,9 +2,12 @@ package resources.entities;
 
 import resources.Resources;
 
+import java.io.Serializable;
+import java.util.Arrays;
+
 public class ClosedQuestion {
 
-    private String question;
+    private String questionText;
     private String correctAnswer;
     private String guessedAnswer;
     private Resources.QuestionDifficulty difficulty;
@@ -14,8 +17,8 @@ public class ClosedQuestion {
         this.possibleAnswers = new String[3];
     }
 
-    public String getQuestion() {
-        return this.question;
+    public String getQuestionText() {
+        return this.questionText;
     }
 
     public String getCorrectAnswer() {
@@ -34,11 +37,11 @@ public class ClosedQuestion {
         return possibleAnswers;
     }
 
-    public void setQuestion(String question) {
-        if (!this.validateTextAttribute(question)) {
+    public void setQuestionText(String questionText) {
+        if (!this.validateTextAttribute(questionText)) {
             throw new IllegalArgumentException("Null or empty");
         }
-        this.question = question;
+        this.questionText = questionText;
     }
 
     public void setCorrectAnswer(String correctAnswer) {
@@ -105,7 +108,7 @@ public class ClosedQuestion {
     }
 
     public boolean validateQuestion() {
-        if(!this.validateTextAttribute(this.question)){
+        if(!this.validateTextAttribute(this.questionText)){
             return false;
         }
         if(!this.validateTextAttribute(this.correctAnswer)){
@@ -124,10 +127,10 @@ public class ClosedQuestion {
         if (this.correctAnswer()) {
             if (this.difficulty == Resources.QuestionDifficulty.LOW) {
                 return Resources.QuestionDifficulty.LOW.getPoints();
-            } else if (this.difficulty == Resources.QuestionDifficulty.MED) {
-                return Resources.QuestionDifficulty.MED.getPoints();
+            } else if (this.difficulty == Resources.QuestionDifficulty.MEDIUM) {
+                return Resources.QuestionDifficulty.MEDIUM.getPoints();
             } else {
-                return Resources.QuestionDifficulty.HIG.getPoints();
+                return Resources.QuestionDifficulty.HIGH.getPoints();
             }
         } else {
             return 0;
@@ -142,7 +145,13 @@ public class ClosedQuestion {
     }
 
     @Override
-    public String toString(){
-        return this.question;
+    public String toString() {
+        return "ClosedQuestion{" +
+                "questionText='" + questionText + '\'' +
+                ", correctAnswer='" + correctAnswer + '\'' +
+                ", guessedAnswer='" + guessedAnswer + '\'' +
+                ", difficulty=" + difficulty +
+                ", possibleAnswers=" + Arrays.toString(possibleAnswers) +
+                '}';
     }
 }

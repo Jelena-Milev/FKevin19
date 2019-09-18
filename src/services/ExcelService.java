@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class ExcelService {
 
-    private String fileName = "Participants.xlsx";
+    private final String fileName = "Participants.xlsx";
 
     private static ExcelService excelServiceInstance = null;
 

@@ -36,19 +36,19 @@
               <Blend />
           </effect>
       </JFXTextArea>
-      <JFXToggleButton fx:id="answerOne" onAction="#buttonToggled" textFill="WHITE" toggleColor="#00118f" toggleLineColor="#6372a8" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+      <JFXToggleButton fx:id="answerOne" onAction="#buttonToggled" textFill="WHITE" toggleColor="#00118f" toggleLineColor="#6372a8" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
          <font>
             <Font name="Montserrat Regular" size="18.0" />
          </font></JFXToggleButton>
-      <JFXToggleButton fx:id="answerTwo" onAction="#buttonToggled" textFill="#fffdfd" toggleColor="#00118f" toggleLineColor="#6372a8" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+      <JFXToggleButton fx:id="answerTwo" onAction="#buttonToggled" textFill="#fffdfd" toggleColor="#00118f" toggleLineColor="#6372a8" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
          <font>
             <Font name="Montserrat Regular" size="18.0" />
          </font></JFXToggleButton>
-      <JFXToggleButton fx:id="answerThree" alignment="BASELINE_LEFT" depthTest="DISABLE" nodeOrientation="RIGHT_TO_LEFT" onAction="#buttonToggled" textFill="WHITE" toggleColor="#00118f" toggleLineColor="#6372a8" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <JFXToggleButton fx:id="answerThree" alignment="BASELINE_LEFT" depthTest="DISABLE" nodeOrientation="RIGHT_TO_LEFT" onAction="#buttonToggled" textFill="WHITE" toggleColor="#00118f" toggleLineColor="#6372a8" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <font>
             <Font name="Montserrat Regular" size="18.0" />
          </font></JFXToggleButton>
-      <JFXToggleButton fx:id="answerFour" alignment="TOP_RIGHT" nodeOrientation="RIGHT_TO_LEFT" onAction="#buttonToggled" textFill="WHITE" toggleColor="#00118f" toggleLineColor="#6372a8" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+      <JFXToggleButton fx:id="answerFour" alignment="TOP_RIGHT" nodeOrientation="RIGHT_TO_LEFT" onAction="#buttonToggled" textFill="WHITE" toggleColor="#00118f" toggleLineColor="#6372a8" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
          <font>
             <Font name="Montserrat Regular" size="18.0" />
          </font></JFXToggleButton>

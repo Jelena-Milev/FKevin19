@@ -15,8 +15,8 @@ public class Resources {
 
     public enum QuestionDifficulty {
         LOW (lowDifficultyQuestionPoints),
-        MED (medDifficultyQuestionPoints),
-        HIG (higDifficultyQuestionPoints);
+        MEDIUM (medDifficultyQuestionPoints),
+        HIGH (higDifficultyQuestionPoints);
 
         public final int points;
 
