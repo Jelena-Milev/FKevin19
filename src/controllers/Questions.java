@@ -61,9 +61,7 @@ public class Questions implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.questions = this.questionService.getRandomQuestions();
         for (ClosedQuestion q: questions) {
-            System.out.println(q);
         }
-        System.out.println("\n\n\n");
 //        this.setTestQuestions();
         this.guessedAnswer.setVisible(false);
         this.bindNextButton();
@@ -90,7 +88,6 @@ public class Questions implements Initializable {
         JFXToggleButton selectedButton = (JFXToggleButton) event.getTarget();
         //this.questions.get(index).setGuessedAnswer(selectedButton.getText());
         this.questions[index].setGuessedAnswer(selectedButton.getText());
-        System.out.println(index+". pitanje quessed answer "+questions[index].getGuessedAnswer()+"\n");
         this.guessedAnswer.setText(selectedButton.getText());
         this.deselectButtons();
         selectedButton.setSelected(true);
@@ -193,7 +190,6 @@ public class Questions implements Initializable {
     private int totalNumberOfPoints() {
         int total = 0;
         for (ClosedQuestion q: this.questions) {
-            System.out.println(q);
             if (q.getGuessedAnswer() == null) {
                 break;
             }
