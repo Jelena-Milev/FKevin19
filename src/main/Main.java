@@ -11,7 +11,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/view/firstStartScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/view/userInfo.fxml"));
         primaryStage.setTitle("FKevin");
         primaryStage.setFullScreenExitHint("");
         primaryStage.setFullScreen(true);

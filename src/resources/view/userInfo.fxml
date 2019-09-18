@@ -23,37 +23,37 @@
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" text="Hvala na igranju!" textFill="WHITE">
                <font>
-                  <Font name="Montserrat Regular" size="42.0" />
+                  <Font name="Montserrat Regular" size="46.0" />
                </font>
             </Label>
             <Label text="Unesite podatke kako biste dobili rezultat:" textFill="WHITE">
                <font>
-                  <Font name="Montserrat Regular" size="18.0" />
+                  <Font name="Montserrat Regular" size="20.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="name" promptText="Ime">
+            <JFXTextField fx:id="name" focusColor="ORANGE" labelFloat="true" promptText="Ime" unFocusColor="ORANGE">
                <font>
-                  <Font name="Montserrat Regular" size="15.0" />
+                  <Font name="Montserrat Regular" size="18.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="surname" promptText="Prezime">
+            <JFXTextField fx:id="surname" focusColor="ORANGE" labelFloat="true" promptText="Prezime" unFocusColor="ORANGE">
                <font>
-                  <Font name="Montserrat Regular" size="15.0" />
+                  <Font name="Montserrat Regular" size="18.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="email" promptText="E-mail">
+            <JFXTextField fx:id="email" focusColor="ORANGE" labelFloat="true" promptText="E-mail" unFocusColor="ORANGE">
                <font>
-                  <Font name="Montserrat Regular" size="15.0" />
+                  <Font name="Montserrat Regular" size="18.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="phone" promptText="Broj telefona(nije obavezno)">
+            <JFXTextField fx:id="phone" focusColor="ORANGE" labelFloat="true" promptText="Broj telefona(nije obavezno)" unFocusColor="ORANGE">
                <font>
-                  <Font name="Montserrat Regular" size="15.0" />
+                  <Font name="Montserrat Regular" size="18.0" />
                </font>
             </JFXTextField>
-            <JFXButton fx:id="endButton" onAction="#onEndButtonClicked" alignment="CENTER" text="Pošalji">
+            <JFXButton fx:id="endButton" alignment="CENTER" onAction="#onEndButtonClicked" text="Pošalji">
                <font>
-                  <Font name="Montserrat Regular" size="20.0" />
+                  <Font name="Montserrat Regular" size="28.0" />
                </font>
             </JFXButton>
          </children>
