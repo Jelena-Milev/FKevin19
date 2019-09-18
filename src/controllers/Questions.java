@@ -8,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,8 +58,11 @@ public class Questions implements Initializable {
     private StageService stageService = StageService.getStageService();
     private QuestionService questionService = QuestionService.getQuestionServiceInstance();
 
+    PseudoClass centered = PseudoClass.getPseudoClass("centered");
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        questionText.pseudoClassStateChanged(centered, true);
         this.questions = this.questionService.getRandomQuestions();
         for (ClosedQuestion q: questions) {
         }

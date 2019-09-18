@@ -59,7 +59,7 @@
 .jfx-progress-bar > .bar{
     -fx-background-color: -fx-secondary;
     -fx-padding: 0.75em;
-    -fx-background-insets: 3 3 4 3;
+    -fx-background-insets: 3 3 3 3;
     -fx-background-radius: 2;
 }
 
@@ -70,6 +70,9 @@
 .button:active {
     -fx-background-color: #ab800c;
     -fx-text-fill: white;
+    -fx-border-color: black;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-radius: 30;
 }
 
 .button:hover {
@@ -86,3 +89,6 @@
     -fx-border-color: white;
 }
 
+.text-area:centered .text {
+    -fx-text-alignment: center;
+}
