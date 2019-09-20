@@ -28,11 +28,13 @@ public class QuizStartScreen implements Initializable {
     @FXML private Button pressSpace;
     @FXML private ImageView orangePlanet;
     @FXML private GridPane quizStartPane;
+    @FXML private ImageView alien;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.stageService.fadeIn(quizStartPane);
         this.animationService.animationUpDown(head, 1);
+        this.animationService.animationUpDown(alien,2);
         this.animationService.imageRotation(orangePlanet,4,360);
         this.rocketAnimation();
         this.pressSpace.requestFocus();

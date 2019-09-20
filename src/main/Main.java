@@ -11,7 +11,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/view/questions.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/view/quizStartScreen.fxml"));
         primaryStage.setTitle("FKevin");
         primaryStage.setFullScreenExitHint("");
         primaryStage.setFullScreen(true);
