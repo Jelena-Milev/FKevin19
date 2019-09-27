@@ -1,6 +1,7 @@
 package services;
 
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import resources.Resources;
 import resources.entities.ClosedQuestion;
@@ -8,6 +9,9 @@ import resources.entities.ClosedQuestion;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class QuestionService {
@@ -15,8 +19,6 @@ public class QuestionService {
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     private final String fileName = "Questions.json";
-
-    private final int numberOfQuestions = 20;
 
     private static QuestionService questionService;
 
@@ -31,35 +33,49 @@ public class QuestionService {
     }
 
     public ClosedQuestion[] getRandomQuestions(){
-        ClosedQuestion[] allQuestions = this.getClosedQuestions();
+        List<ClosedQuestion> allQuestions = this.getClosedQuestions();
+        ClosedQuestion[] chosenRandomQuestions = new ClosedQuestion[Resources.TOTAL_NUMBER_OF_QUESTIONS];
 
-        int[] randomIndexes = this.getRandomNumbers(this.numberOfQuestions, allQuestions.length);
+        int low = 0;
+        int medium = 0;
+        int high = 0;
 
-        ClosedQuestion[] randomQuestions = new ClosedQuestion[randomIndexes.length];
+        int counter = 0;
+        Random random = new Random();
+        while(counter < Resources.TOTAL_NUMBER_OF_QUESTIONS){
+            int randomIndex = random.nextInt(allQuestions.size());
+            ClosedQuestion question = allQuestions.get(randomIndex);
 
-        for (int i = 0; i < randomIndexes.length; i++) {
-            randomQuestions[i] = allQuestions[randomIndexes[i]];
+            if(question.getDifficulty() == Resources.QuestionDifficulty.LOW && low < Resources.QuestionDifficulty.LOW.getNumberOfQuestions()){
+                chosenRandomQuestions[counter] = question;
+                ++low;
+                ++counter;
+            }else if (question.getDifficulty() == Resources.QuestionDifficulty.MEDIUM && medium < Resources.QuestionDifficulty.MEDIUM.getNumberOfQuestions()){
+                chosenRandomQuestions[counter] = question;
+                ++medium;
+                ++counter;
+            }else if(question.getDifficulty() == Resources.QuestionDifficulty.HIGH && high < Resources.QuestionDifficulty.HIGH.getNumberOfQuestions()){
+                chosenRandomQuestions[counter] = question;
+                ++high;
+                ++counter;
+            }
+            allQuestions.remove(question);
         }
-        return randomQuestions;
+        return chosenRandomQuestions;
     }
 
-    private ClosedQuestion[] getClosedQuestions() {
-        JsonArray jsonQuestions = this.getJsonQuestions();
-        ClosedQuestion[] questions;
-        if (jsonQuestions == null) {
-            questions = new ClosedQuestion[0];
-        } else {
-            questions = gson.fromJson(jsonQuestions, ClosedQuestion[].class);
-        }
-
-        return questions;
+    private List<ClosedQuestion> getClosedQuestions() {
+        JsonElement jsonQuestions = this.getJsonQuestions();
+        // Convert JSON element to list
+        Type listType = TypeToken.getParameterized(List.class, ClosedQuestion.class).getType();
+        return this.gson.fromJson(jsonQuestions, listType);
     }
 
-    private JsonArray getJsonQuestions() {
-        JsonArray jsonQuestions = null;
+    private JsonElement getJsonQuestions() {
+        JsonElement jsonQuestions = null;
         try (JsonReader reader = new JsonReader(new FileReader(Resources.DATA_LOCATION+this.fileName))) {
             JsonElement fileContent = gson.fromJson(reader, JsonObject.class);
-                jsonQuestions = fileContent.getAsJsonObject().get("ClosedQuestions").getAsJsonArray();
+                jsonQuestions = fileContent.getAsJsonObject().get("ClosedQuestions");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

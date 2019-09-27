@@ -49,6 +49,7 @@ public class UserInfo implements Initializable {
     }
 
     public void onEndButtonClicked(ActionEvent event) {
+        System.out.println(totalPoints);
         String[] info = new String[]{
             this.name.getText(), this.surname.getText(), this.email.getText(),
                 this.phone.getText(), this.totalPoints+""

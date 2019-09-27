@@ -54,11 +54,13 @@ public class Questions implements Initializable {
     private GridPane questionsPane;
 
     private ClosedQuestion[] questions = new ClosedQuestion[100];
-    private int index = 0;
+    private int currentQuestionIndex = 0;
     private StageService stageService = StageService.getStageService();
     private QuestionService questionService = QuestionService.getQuestionServiceInstance();
+    private Timeline timeline;
 
     PseudoClass centered = PseudoClass.getPseudoClass("centered");
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -90,11 +92,12 @@ public class Questions implements Initializable {
 
     public void buttonToggled(ActionEvent event) {
         JFXToggleButton selectedButton = (JFXToggleButton) event.getTarget();
-        //this.questions.get(index).setGuessedAnswer(selectedButton.getText());
-        this.questions[index].setGuessedAnswer(selectedButton.getText());
+        //this.questions.get(currentQuestionIndex).setGuessedAnswer(selectedButton.getText());
+        this.questions[currentQuestionIndex].setGuessedAnswer(selectedButton.getText());
         this.guessedAnswer.setText(selectedButton.getText());
         this.deselectButtons();
         selectedButton.setSelected(true);
+        this.nextButton.requestFocus();
     }
 
     private void loadQuestionAnswers(ClosedQuestion question) {
@@ -144,13 +147,17 @@ public class Questions implements Initializable {
     }
 
     private void displayQuestion() {
-        ClosedQuestion question = this.questions[this.index];
-        //ClosedQuestion question = this.questions.get(this.index);
+        if(this.currentQuestionIndex == this.questions.length){
+            this.timeline.stop();
+            this.gameFinished();
+        }
+        ClosedQuestion question = this.questions[this.currentQuestionIndex];
+        //ClosedQuestion question = this.questions.get(this.currentQuestionIndex);
         this.resetComponents();
         this.loadQuestionText(question);
         this.loadQuestionAnswers(question);
         this.answerOne.setDisableVisualFocus(true);
-        if (index == 0) {
+        if (currentQuestionIndex == 0) {
             this.progressBarCountdown();
         }
     }
@@ -158,35 +165,21 @@ public class Questions implements Initializable {
     private void progressBarCountdown() {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(this.progressBar.progressProperty(), 0)),
-                new KeyFrame(Duration.minutes(2), e -> {
-                    try {
-                        stageService.changeSceneAndPassPointsToUserInfoScreen("resources/view/userInfo.fxml", questionsPane, this.totalNumberOfPoints());
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
+                new KeyFrame(Duration.seconds(Resources.gameDurationSeconds), e -> {
+                        gameFinished();
                 }, new KeyValue(this.progressBar.progressProperty(), 1))
         );
         timeline.setCycleCount(1);
         timeline.play();
     }
 
-    private void setTestQuestions(){
-        this.questions = new ClosedQuestion[100];
-        for (int i=0;i<100;i++) {
-            questions[i] = new ClosedQuestion();
-            questions[i].setQuestionText("Prvo probno sa la la la la la pitanje "+i);
-            questions[i].setDifficulty(Resources.QuestionDifficulty.HIGH);
-            questions[i].setCorrectAnswer("ponudjeni odg 4");
-            String[] pa = new String[3];
-            pa[0] = "ponudjeni odg 1";
-            pa[1] = "ponudjeni odg 2";
-            pa[2] = "ponudjeni odg 3";
-            questions[i].setPossibleAnswers(pa);
-        }
+    private void gameFinished(){
+        int points = this.totalNumberOfPoints();
+        stageService.changeSceneAndPassPointsToUserInfoScreen("resources/view/userInfo.fxml", questionsPane, points);
     }
 
     public void onNextButtonClicked(ActionEvent event) {
-        ++this.index;
+        ++this.currentQuestionIndex;
         this.displayQuestion();
         this.deselectButtons();
     }
@@ -200,12 +193,20 @@ public class Questions implements Initializable {
             if (q.getGuessedAnswer().equals(q.getCorrectAnswer())) {
                 switch (q.getDifficulty()) {
                     case LOW:
-                        total += Resources.lowDifficultyQuestionPoints;
+                        total += Resources.QuestionDifficulty.LOW.getPoints();
+//                        System.out.println(total);
+                        break;
                     case MEDIUM:
-                        total += Resources.medDifficultyQuestionPoints;
+                        total += Resources.QuestionDifficulty.MEDIUM.getPoints();
+//                        System.out.println(total);
+                        break;
                     case HIGH:
-                        total += Resources.higDifficultyQuestionPoints;
+                        total += Resources.QuestionDifficulty.HIGH.getPoints();
+//                        System.out.println(total);
+                        break;
                 }
+            }else{
+                System.out.println("netacan odg");
             }
         }
         return total;
