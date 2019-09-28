@@ -48,14 +48,42 @@ public class StageService {
             e.printStackTrace();
         }
     }
+//ne radiii!!!!
+//    public void changeSceneAndPassPointsToEndScreen(String newScenePath, ActionEvent event, int points) {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(newScenePath));
+
+//            Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(newScenePath));
+
+//            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+    //ne treba da se koristi staticka metoda load za prosledjivanje vrednosti izmedju scena
+    //jer je parent dobijen pozivom staticke metode
+
+//            currentStage.getScene().setRoot(parent);
+//            loader.load();
+//            ((EndScreen) loader.getController()).setTotalPoints(points);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void changeSceneAndPassPointsToEndScreen(String newScenePath, ActionEvent event, int points) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(newScenePath));
-            Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(newScenePath));
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentStage.getScene().setRoot(parent);
-            loader.load();
+            currentStage.getScene().setRoot(loader.load());
+            ((EndScreen) loader.getController()).setTotalPoints(points);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeSceneAndPassPointsToEndScreen(String newScenePath, Pane rootPane, int points) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(newScenePath));
+            Stage currentStage = (Stage) rootPane.getScene().getWindow();
+            currentStage.getScene().setRoot(loader.load());
             ((EndScreen) loader.getController()).setTotalPoints(points);
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,16 +111,6 @@ public class StageService {
 //                    changeScene(nextScenePath, rootPane.getScene());
 //                }
 //        );
-//        fade.playFromStart();
-//        fade.setCycleCount(1);
-//    }
-
-//    public void fadeIn(Pane rootPane) {
-//        FadeTransition fade = new FadeTransition();
-//        fade.setDuration(Duration.seconds(1));
-//        fade.setNode(rootPane);
-//        fade.setFromValue(0);
-//        fade.setToValue(1);
 //        fade.playFromStart();
 //        fade.setCycleCount(1);
 //    }

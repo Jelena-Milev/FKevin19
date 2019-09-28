@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<GridPane fx:id="endScreenPane" alignment="CENTER" gridLinesVisible="false" prefHeight="720" prefWidth="1280" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EndScreen">
+<GridPane fx:id="endScreenPane" alignment="CENTER" prefHeight="720" prefWidth="1280" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EndScreen">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" percentWidth="100.0" />
         <ColumnConstraints halignment="CENTER" percentWidth="100.0" />
@@ -28,7 +27,7 @@
     </rowConstraints>
     <children>
         <VBox fx:id="message" alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="3">
-            <Label fx:id="congratulationLbl" text="Čestitamo! Osvojio/la si" textFill="WHITE">
+            <Label fx:id="congratulationLbl" textFill="WHITE">
                <font>
                   <Font size="28.0" />
                </font></Label>
@@ -37,7 +36,7 @@
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label fx:id="pointsLbl" text="poena!" textFill="WHITE">
+            <Label fx:id="pointsLbl" textFill="WHITE">
                <font>
                   <Font size="28.0" />
                </font>
@@ -58,7 +57,7 @@
                 <Image url="@../img/fKevinHead.png" />
             </image>
         </ImageView>
-        <Button fx:id="pressSpace" mnemonicParsing="false" prefHeight="500" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Button fx:id="pressSpace" onAction="#buttonPressed" mnemonicParsing="false" prefHeight="500" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     </children>
 
 </GridPane>

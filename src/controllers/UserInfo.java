@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.scene.layout.GridPane;
 import services.ExcelService;
 import services.StageService;
 
@@ -18,6 +19,8 @@ public class UserInfo implements Initializable {
 
     private StageService stageService = StageService.getStageService();
     private ExcelService excelService = ExcelService.getExcelServiceInstance();
+
+    @FXML private GridPane userInfoPane;
 
     @FXML
     private JFXTextField name;
@@ -49,7 +52,7 @@ public class UserInfo implements Initializable {
     }
 
     public void onEndButtonClicked(ActionEvent event) {
-        System.out.println(totalPoints);
+        System.out.println("User info: "+ totalPoints);
         String[] info = new String[]{
             this.name.getText(), this.surname.getText(), this.email.getText(),
                 this.phone.getText(), this.totalPoints+""

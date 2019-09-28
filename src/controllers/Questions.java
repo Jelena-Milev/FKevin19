@@ -147,7 +147,6 @@ public class Questions implements Initializable {
                 }
             }
         }
-        System.out.println("Total: "+total);
         return total;
     }
 

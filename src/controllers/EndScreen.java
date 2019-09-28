@@ -7,7 +7,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -39,31 +38,23 @@ public class EndScreen implements Initializable {
     @FXML
     private Label pointsLbl;
     @FXML
-    private VBox message;
+    private Button pressSpace;
 
     private int totalPoints;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        this.animationService.animationUpDown(head, 1);
-//        this.animationService.imageRotation(this.orangePlanet, 4, 360);
-//        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(2));
-//        pauseTransition.setOnFinished(e -> {
-//            if(this.totalPoints == 0){
-//                pauseTransition.playFromStart();
-//            }
-//            scoreLbl.setText(this.totalPoints + "");
-//        });
-//        pauseTransition.setCycleCount(1);
-//        pauseTransition.play();
-//        this.delayForSceneChange();
+        this.animationService.animationUpDown(head, 1);
+        this.animationService.imageRotation(this.orangePlanet, 4, 360);
+        this.pressSpace.requestFocus();
+        this.showEndMessage();
+        this.delayForSceneChange();
     }
 
     public void delayForSceneChange() {
-        PauseTransition delay = new PauseTransition(Duration.seconds(15));
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(pauseEvent -> {
-//            stageService.fadeOut(endScreenPane, "resources/view/quizStartScreen.fxml");
             stageService.fadeOut(endScreenPane, head, "resources/view/quizStartScreen.fxml");
         });
         delay.play();
@@ -71,21 +62,20 @@ public class EndScreen implements Initializable {
 
     public void setTotalPoints(int receivedPoints) {
         this.totalPoints = receivedPoints;
-        this.scoreLbl.setText(this.totalPoints+" poena");
     }
 
 
     private void showEndMessage() {
-        PauseTransition pauseTransition3 = new PauseTransition(Duration.millis(960));
+        PauseTransition pauseTransition3 = new PauseTransition(Duration.millis(1440));
         pauseTransition3.setOnFinished(pauseEvent -> {
-            showMessage(this.scoreLbl, (int) (this.totalPoints * (200.0 / 24)) + " / " + (int) (Resources.maxPoints * (200.0 / 24)), 40);
+            showMessage(this.scoreLbl, (int)(this.totalPoints *  (200.0 / 24)) + " / " + (int) (Resources.maxPoints * (200.0 / 24)), 60);
         });
 
-        PauseTransition pauseTransition4 = new PauseTransition(Duration.millis(1280));
+        PauseTransition pauseTransition4 = new PauseTransition(Duration.millis(1980));
         pauseTransition4.setOnFinished(pauseEvent -> {
-            showMessage(this.pointsLbl, "poena!", 40);
+            showMessage(this.pointsLbl, "poena!", 60);
         });
-        showMessage(this.congratulationLbl, "Čestitamo! Osvojili ste ", 40);
+        showMessage(this.congratulationLbl, "Čestitamo! Osvojili ste ", 60);
         pauseTransition3.play();
         pauseTransition4.play();
     }
@@ -106,5 +96,12 @@ public class EndScreen implements Initializable {
         timeline.getKeyFrames().add(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+    public void buttonPressed(){
+//        System.out.println("Button pressed "+this.totalPoints);
+//        this.showEndMessage();
+//        delayForSceneChange();
+
     }
 }
