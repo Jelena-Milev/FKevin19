@@ -47,8 +47,8 @@ public class Questions implements Initializable {
     @FXML
     private JFXButton nextButton;
 
-    @FXML
-    private JFXTextField guessedAnswer;
+//    @FXML
+//    private JFXTextField guessedAnswer;
 
     @FXML
     private GridPane questionsPane;
@@ -66,14 +66,151 @@ public class Questions implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         questionText.pseudoClassStateChanged(centered, true);
         this.questions = this.questionService.getRandomQuestions();
-        for (ClosedQuestion q: questions) {
-        }
-//        this.setTestQuestions();
-        this.guessedAnswer.setVisible(false);
+
+//        this.guessedAnswer.setVisible(false);
         this.bindNextButton();
         this.questionText.setMouseTransparent(true);
         this.questionText.setFocusTraversable(true);
         this.displayQuestion();
+    }
+
+    public void buttonToggled(ActionEvent event) {
+        JFXToggleButton selectedButton = (JFXToggleButton) event.getTarget();
+        //this.questions.get(currentQuestionIndex).setGuessedAnswer(selectedButton.getText());
+        this.questions[currentQuestionIndex].setGuessedAnswer(selectedButton.getText());
+//        this.guessedAnswer.setText(selectedButton.getText());
+        this.deselectButtons();
+        selectedButton.setSelected(true);
+        this.nextButton.requestFocus();
+    }
+
+    private void bindNextButton() {
+        this.nextButton.disableProperty().bind(Bindings.not(answerOne.selectedProperty().or(answerTwo.selectedProperty().or(answerThree.selectedProperty().or(answerFour.selectedProperty())))));
+    }
+
+    private void displayQuestion() {
+        if (this.currentQuestionIndex == this.questions.length) {
+            this.timeline.stop();
+            this.gameFinished();
+            return;
+        }
+        ClosedQuestion question = this.questions[this.currentQuestionIndex];
+        //ClosedQuestion question = this.questions.get(this.currentQuestionIndex);
+        this.resetComponents();
+        this.loadQuestionText(question);
+        this.loadQuestionAnswers(question);
+        this.answerOne.setDisableVisualFocus(true);
+        if (currentQuestionIndex == 0) {
+            this.progressBarCountdown();
+        }
+    }
+
+    private void progressBarCountdown() {
+        this.timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(this.progressBar.progressProperty(), 0)),
+                new KeyFrame(Duration.seconds(Resources.gameDurationSeconds),
+                        e -> gameFinished(),
+                        new KeyValue(this.progressBar.progressProperty(), 1))
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+
+    private void gameFinished() {
+        int points = this.totalNumberOfPoints();
+        stageService.changeSceneAndPassPointsToUserInfoScreen("resources/view/userInfo.fxml", questionsPane, points);
+    }
+
+    public void onNextButtonClicked(ActionEvent event) {
+        ++this.currentQuestionIndex;
+        this.displayQuestion();
+        this.deselectButtons();
+    }
+
+    private int totalNumberOfPoints() {
+        int total = 0;
+        for (ClosedQuestion q : this.questions) {
+            if (q.getGuessedAnswer() == null) {
+                break;
+            }
+            if (q.getGuessedAnswer().equals(q.getCorrectAnswer())) {
+                switch (q.getDifficulty()) {
+                    case LOW:
+                        total += Resources.QuestionDifficulty.LOW.getPoints();
+                        break;
+                    case MEDIUM:
+                        total += Resources.QuestionDifficulty.MEDIUM.getPoints();
+                        break;
+                    case HIGH:
+                        total += Resources.QuestionDifficulty.HIGH.getPoints();
+                        break;
+                }
+            }
+        }
+        System.out.println("Total: "+total);
+        return total;
+    }
+
+    //    private void loadQuestionText(ClosedQuestion question) {
+//        String questionText = question.getQuestionText();
+//        final IntegerProperty i = new SimpleIntegerProperty(0);
+//        Timeline timeline = new Timeline();
+//        KeyFrame keyFrame = new KeyFrame(
+//                Duration.millis(40),
+//                event -> {
+//                    if (i.get() > questionText.length()) {
+//                        timeline.stop();
+//                    } else {
+//                        this.questionText.setText(questionText.substring(0, i.get()));
+//                        i.set(i.get() + 1);
+//                    }
+//                }
+//        );
+//        timeline.getKeyFrames().add(keyFrame);
+//        timeline.setCycleCount(Animation.INDEFINITE);
+//        timeline.play();
+//    }
+    private void loadQuestionText(ClosedQuestion question) {
+        this.questionText.setOpacity(0);
+        this.questionText.setText(question.getQuestionText());
+        this.stageService.fadeIn(this.questionText, 0.5);
+    }
+
+//    private void loadQuestionAnswers(ClosedQuestion question) {
+//        List<String> answers = new ArrayList<>();
+//        String[] possibleAnswers = question.getPossibleAnswers();
+//        answers.addAll(Arrays.asList(possibleAnswers));
+//        answers.add(question.getCorrectAnswer());
+//
+//        Collections.shuffle(answers);
+//        this.answerOne.setText(answers.get(0));
+//        this.answerTwo.setText(answers.get(1));
+//        this.answerThree.setText(answers.get(2));
+//        this.answerFour.setText(answers.get(3));
+//    }
+
+    private void loadQuestionAnswers(ClosedQuestion question) {
+        List<String> answers = new ArrayList<>();
+        String[] possibleAnswers = question.getPossibleAnswers();
+        answers.addAll(Arrays.asList(possibleAnswers));
+        answers.add(question.getCorrectAnswer());
+
+        Collections.shuffle(answers);
+
+        this.answerOne.setOpacity(0);
+        this.answerTwo.setOpacity(0);
+        this.answerThree.setOpacity(0);
+        this.answerFour.setOpacity(0);
+
+        this.answerOne.setText(answers.get(0));
+        this.answerTwo.setText(answers.get(1));
+        this.answerThree.setText(answers.get(2));
+        this.answerFour.setText(answers.get(3));
+
+        this.stageService.fadeIn(this.answerOne, 0.5);
+        this.stageService.fadeIn(this.answerTwo, 0.5);
+        this.stageService.fadeIn(this.answerThree, 0.5);
+        this.stageService.fadeIn(this.answerFour, 0.5);
     }
 
     private void resetComponents() {
@@ -88,127 +225,5 @@ public class Questions implements Initializable {
         this.answerTwo.setSelected(false);
         this.answerThree.setSelected(false);
         this.answerFour.setSelected(false);
-    }
-
-    public void buttonToggled(ActionEvent event) {
-        JFXToggleButton selectedButton = (JFXToggleButton) event.getTarget();
-        //this.questions.get(currentQuestionIndex).setGuessedAnswer(selectedButton.getText());
-        this.questions[currentQuestionIndex].setGuessedAnswer(selectedButton.getText());
-        this.guessedAnswer.setText(selectedButton.getText());
-        this.deselectButtons();
-        selectedButton.setSelected(true);
-        this.nextButton.requestFocus();
-    }
-
-    private void loadQuestionAnswers(ClosedQuestion question) {
-        List<String> answers = new ArrayList<>();
-        String[] possibleAnswers = question.getPossibleAnswers();
-        answers.addAll(Arrays.asList(possibleAnswers));
-        answers.add(question.getCorrectAnswer());
-
-        Collections.shuffle(answers);
-        this.answerOne.setText(answers.get(0));
-        this.answerTwo.setText(answers.get(1));
-        this.answerThree.setText(answers.get(2));
-        this.answerFour.setText(answers.get(3));
-    }
-
-    private void bindNextButton() {
-//        this.nextButton.disableProperty().bind(Bindings.createBooleanBinding(this::checkIfSelected));
-        this.nextButton.disableProperty().bind(Bindings.not(answerOne.selectedProperty().or(answerTwo.selectedProperty().or(answerThree.selectedProperty().or(answerFour.selectedProperty())))));
-    }
-
-    private boolean checkIfSelected() {
-        if (answerOne.isSelected() || answerTwo.isSelected() || answerThree.isSelected() || answerFour.isSelected()) {
-            return false;
-        }else{
-            return true;
-        }
-    }
-
-    private void loadQuestionText(ClosedQuestion question) {
-        String questionText = question.getQuestionText();
-        final IntegerProperty i = new SimpleIntegerProperty(0);
-        Timeline timeline = new Timeline();
-        KeyFrame keyFrame = new KeyFrame(
-                Duration.millis(40),
-                event -> {
-                    if (i.get() > questionText.length()) {
-                        timeline.stop();
-                    } else {
-                        this.questionText.setText(questionText.substring(0, i.get()));
-                        i.set(i.get() + 1);
-                    }
-                }
-        );
-        timeline.getKeyFrames().add(keyFrame);
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
-    }
-
-    private void displayQuestion() {
-        if(this.currentQuestionIndex == this.questions.length){
-            this.timeline.stop();
-            this.gameFinished();
-        }
-        ClosedQuestion question = this.questions[this.currentQuestionIndex];
-        //ClosedQuestion question = this.questions.get(this.currentQuestionIndex);
-        this.resetComponents();
-        this.loadQuestionText(question);
-        this.loadQuestionAnswers(question);
-        this.answerOne.setDisableVisualFocus(true);
-        if (currentQuestionIndex == 0) {
-            this.progressBarCountdown();
-        }
-    }
-
-    private void progressBarCountdown() {
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(this.progressBar.progressProperty(), 0)),
-                new KeyFrame(Duration.seconds(Resources.gameDurationSeconds), e -> {
-                        gameFinished();
-                }, new KeyValue(this.progressBar.progressProperty(), 1))
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
-
-    private void gameFinished(){
-        int points = this.totalNumberOfPoints();
-        stageService.changeSceneAndPassPointsToUserInfoScreen("resources/view/userInfo.fxml", questionsPane, points);
-    }
-
-    public void onNextButtonClicked(ActionEvent event) {
-        ++this.currentQuestionIndex;
-        this.displayQuestion();
-        this.deselectButtons();
-    }
-
-    private int totalNumberOfPoints() {
-        int total = 0;
-        for (ClosedQuestion q: this.questions) {
-            if (q.getGuessedAnswer() == null) {
-                break;
-            }
-            if (q.getGuessedAnswer().equals(q.getCorrectAnswer())) {
-                switch (q.getDifficulty()) {
-                    case LOW:
-                        total += Resources.QuestionDifficulty.LOW.getPoints();
-//                        System.out.println(total);
-                        break;
-                    case MEDIUM:
-                        total += Resources.QuestionDifficulty.MEDIUM.getPoints();
-//                        System.out.println(total);
-                        break;
-                    case HIGH:
-                        total += Resources.QuestionDifficulty.HIGH.getPoints();
-//                        System.out.println(total);
-                        break;
-                }
-            }else{
-                System.out.println("netacan odg");
-            }
-        }
-        return total;
     }
 }

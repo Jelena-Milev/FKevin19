@@ -6,11 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
+import resources.Resources;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        Resources.APP_LOCATION = Resources.getAppLocation();
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/view/firstStartScreen.fxml"));
         primaryStage.setTitle("FKevin");
         primaryStage.setFullScreenExitHint("");

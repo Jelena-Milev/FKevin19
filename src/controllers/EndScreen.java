@@ -1,10 +1,16 @@
 package controllers;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -26,56 +32,62 @@ public class EndScreen implements Initializable {
     private GridPane endScreenPane;
     @FXML
     private ImageView orangePlanet;
-    @FXML private Label congratulationLbl;
-    @FXML private Label scoreLbl;
-    @FXML private Label pointsLbl;
-    @FXML private VBox message;
-
+    @FXML
+    private Label congratulationLbl;
+    @FXML
+    private Label scoreLbl;
+    @FXML
+    private Label pointsLbl;
+    @FXML
+    private VBox message;
 
     private int totalPoints;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        animationService.animationUpDown(head,1);
-        animationService.imageRotation(this.orangePlanet, 4, 360);
-        this.delayForSceneChange();
+//        this.animationService.animationUpDown(head, 1);
+//        this.animationService.imageRotation(this.orangePlanet, 4, 360);
+//        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(2));
+//        pauseTransition.setOnFinished(e -> {
+//            if(this.totalPoints == 0){
+//                pauseTransition.playFromStart();
+//            }
+//            scoreLbl.setText(this.totalPoints + "");
+//        });
+//        pauseTransition.setCycleCount(1);
+//        pauseTransition.play();
+//        this.delayForSceneChange();
     }
 
     public void delayForSceneChange() {
-        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        PauseTransition delay = new PauseTransition(Duration.seconds(15));
         delay.setOnFinished(pauseEvent -> {
 //            stageService.fadeOut(endScreenPane, "resources/view/quizStartScreen.fxml");
             stageService.fadeOut(endScreenPane, head, "resources/view/quizStartScreen.fxml");
         });
-        PauseTransition waitForShowingMessage = new PauseTransition(Duration.seconds(1));
-        waitForShowingMessage.setOnFinished(event -> {
-            showEndMessage();
-            delay.play();
-        });
-        waitForShowingMessage.play();
+        delay.play();
     }
 
-    public void setTotalPoints(int receivedPoints){
+    public void setTotalPoints(int receivedPoints) {
         this.totalPoints = receivedPoints;
-        this.congratulationLbl.setVisible(true);
-        this.congratulationLbl.setText(this.totalPoints+"");
+        this.scoreLbl.setText(this.totalPoints+" poena");
     }
 
 
+    private void showEndMessage() {
+        PauseTransition pauseTransition3 = new PauseTransition(Duration.millis(960));
+        pauseTransition3.setOnFinished(pauseEvent -> {
+            showMessage(this.scoreLbl, (int) (this.totalPoints * (200.0 / 24)) + " / " + (int) (Resources.maxPoints * (200.0 / 24)), 40);
+        });
 
-    private void showEndMessage(){
-        StringBuilder builder = new StringBuilder();
-        builder.append("Čestitamo! Osvojio/la si \n");
-        builder.append(this.totalPoints);
-        builder.append(" / ");
-        builder.append(Resources.maxPoints);
-        builder.append("poena!");
-
-        this.message.setVisible(true);
-        this.congratulationLbl.setText(builder.toString());
-//        this.showMessage(this.congratulationLbl, builder.toString(), 20);
-
+        PauseTransition pauseTransition4 = new PauseTransition(Duration.millis(1280));
+        pauseTransition4.setOnFinished(pauseEvent -> {
+            showMessage(this.pointsLbl, "poena!", 40);
+        });
+        showMessage(this.congratulationLbl, "Čestitamo! Osvojili ste ", 40);
+        pauseTransition3.play();
+        pauseTransition4.play();
     }
 
     private void showMessage(Label label, String text, int millis) {
@@ -95,6 +107,4 @@ public class EndScreen implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
-
-
 }

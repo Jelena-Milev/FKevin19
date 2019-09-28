@@ -28,16 +28,11 @@ public class StageService {
 
     public void changeScene(String newScenePath, Scene currentScene) {
         try {
-            System.out.println("\n\n"+newScenePath);
+            if(currentScene == null){
+                return;
+            }
             Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(newScenePath));
-            boolean isParentNull = parent==null;
-            System.out.println("Parent null? "+isParentNull);
-            boolean isCurrentScene = currentScene==null;
-            System.out.println("currentScene null? "+isCurrentScene);
             Stage currentStage = (Stage) currentScene.getWindow();
-            boolean third = currentStage==null;
-            System.out.println("currentStage null? "+third);
-
             currentStage.getScene().setRoot(parent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,10 +111,10 @@ public class StageService {
         fade.setCycleCount(1);
     }
 
-    public void fadeIn(Pane rootPane) {
+    public void fadeIn(Node node, double durationSeconds) {
         FadeTransition fade = new FadeTransition();
-        fade.setDuration(Duration.seconds(1));
-        fade.setNode(rootPane);
+        fade.setDuration(Duration.seconds(durationSeconds));
+        fade.setNode(node);
         fade.setFromValue(0);
         fade.setToValue(1);
         fade.playFromStart();

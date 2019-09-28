@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXProgressBar?>
 <?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.ImageView?>
@@ -57,6 +56,5 @@
             <Font name="Montserrat Regular" size="18.0" />
          </font></JFXButton>
       <JFXProgressBar fx:id="progressBar" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <JFXTextField fx:id="guessedAnswer" />
    </children>
 </GridPane>

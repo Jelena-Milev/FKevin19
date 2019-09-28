@@ -1,68 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.VBox?>
-<GridPane fx:id="endScreenPane" alignment="CENTER" gridLinesVisible="false" prefHeight="720" prefWidth="1280"
-          stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EndScreen">
+<?import com.jfoenix.controls.JFXButton?>
+<GridPane fx:id="endScreenPane" alignment="CENTER" gridLinesVisible="false" prefHeight="720" prefWidth="1280" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EndScreen">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" percentWidth="100"/>
-        <ColumnConstraints halignment="CENTER" percentWidth="100"/>
-        <ColumnConstraints halignment="CENTER" percentWidth="100"/>
+        <ColumnConstraints halignment="CENTER" percentWidth="100.0" />
+        <ColumnConstraints halignment="CENTER" percentWidth="100.0" />
+        <ColumnConstraints halignment="CENTER" percentWidth="100.0" />
+      <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints percentHeight="20.0"/>
-        <RowConstraints percentHeight="10.0"/>
-        <RowConstraints percentHeight="30.0"/>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
+        <RowConstraints percentHeight="20.0" />
+        <RowConstraints percentHeight="10.0" />
+        <RowConstraints percentHeight="30.0" />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
     </rowConstraints>
     <children>
-        <VBox fx:id="message" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="0" spacing="10">
-            <Label fx:id="congratulationLbl" visible="false" textFill="WHITE">
-                <font>
-                    <Font size="32.0"/>
-                </font>
-            </Label>
+        <VBox fx:id="message" alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="3">
+            <Label fx:id="congratulationLbl" text="Čestitamo! Osvojio/la si" textFill="WHITE">
+               <font>
+                  <Font size="28.0" />
+               </font></Label>
             <Label fx:id="scoreLbl" textFill="WHITE">
-                <font>
-                    <Font size="36.0"/>
-                </font>
+               <font>
+                  <Font size="30.0" />
+               </font>
             </Label>
-            <Label fx:id="pointsLbl" textFill="WHITE">
-                <font>
-                    <Font size="32.0"/>
-                </font>
+            <Label fx:id="pointsLbl" text="poena!" textFill="WHITE">
+               <font>
+                  <Font size="28.0" />
+               </font>
             </Label>
         </VBox>
-        <ImageView fx:id="orangePlanet" fitHeight="400" fitWidth="400" GridPane.columnIndex="0"
-                   GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="3" GridPane.valignment="CENTER">
+        <ImageView fx:id="orangePlanet" fitHeight="400" fitWidth="400" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="3" GridPane.valignment="CENTER">
             <image>
-                <Image url="@../img/planet.png"/>
+                <Image url="@../img/planet.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="59" fitWidth="195" GridPane.columnIndex="1" GridPane.rowIndex="4"
-                   GridPane.valignment="TOP">
+        <ImageView fitHeight="59" fitWidth="195" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
             <image>
-                <Image url="@../img/fKevinBody.png"/>
+                <Image url="@../img/fKevinBody.png" />
             </image>
         </ImageView>
         <ImageView fx:id="head" fitHeight="184" fitWidth="268" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <image>
-                <Image url="@../img/fKevinHead.png"/>
+                <Image url="@../img/fKevinHead.png" />
             </image>
         </ImageView>
-        <Button fx:id="pressSpace" mnemonicParsing="false" prefHeight="500" visible="true" GridPane.columnIndex="1"
-                GridPane.rowIndex="5"/>
+        <Button fx:id="pressSpace" mnemonicParsing="false" prefHeight="500" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     </children>
 
 </GridPane>

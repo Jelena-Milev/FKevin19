@@ -32,7 +32,7 @@ public class QuizStartScreen implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.stageService.fadeIn(quizStartPane);
+        this.stageService.fadeIn(quizStartPane, 1);
         this.animationService.animationUpDown(head, 1);
         this.animationService.animationUpDown(alien,2);
         this.animationService.imageRotation(orangePlanet,4,360);
