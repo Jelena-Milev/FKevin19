@@ -11,7 +11,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.scene.layout.GridPane;
+import resources.entities.Participant;
 import services.ExcelService;
+import services.ParticipantJSONService;
 import services.StageService;
 
 
@@ -19,6 +21,7 @@ public class UserInfo implements Initializable {
 
     private StageService stageService = StageService.getStageService();
     private ExcelService excelService = ExcelService.getExcelServiceInstance();
+    private ParticipantJSONService jsonService = ParticipantJSONService.getJsonService();
 
     @FXML private GridPane userInfoPane;
 
@@ -61,7 +64,10 @@ public class UserInfo implements Initializable {
             this.name.getText(), this.surname.getText(), this.email.getText(),
                 this.phone.getText(), this.totalPoints+""
         };
+        Participant participant = new Participant(this.name.getText(), this.surname.getText(), this.email.getText(), this.phone.getText(), this.totalPoints);
+
         this.excelService.saveParticipantInfo(info);
+        this.jsonService.saveParticipant(participant);
         stageService.changeSceneAndPassPointsToEndScreen("resources/view/endScreen.fxml", event, totalPoints);
     }
 }

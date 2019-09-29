@@ -14,6 +14,14 @@ public class Participant {
         this.totalPoints = 0;
     }
 
+    public Participant(String name, String surname, String email, String phoneNumber, int totalPoints) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.totalPoints = totalPoints;
+    }
+
     public String getName(){
         return name;
     }

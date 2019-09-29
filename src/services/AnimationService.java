@@ -13,7 +13,7 @@ import javafx.util.Duration;
 
 public class AnimationService {
     private static AnimationService animationService;
-    public AnimationService() {
+    private AnimationService() {
     }
     public static AnimationService getAnimationService(){
         if(animationService==null)
