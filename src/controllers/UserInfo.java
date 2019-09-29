@@ -39,6 +39,11 @@ public class UserInfo implements Initializable {
 
     private int totalPoints;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.bindEndButton();
+    }
+
 
     private void bindEndButton() {
         this.endButton.disableProperty().bind(Bindings.isEmpty(name.textProperty())
@@ -52,7 +57,6 @@ public class UserInfo implements Initializable {
     }
 
     public void onEndButtonClicked(ActionEvent event) {
-        System.out.println("User info: "+ totalPoints);
         String[] info = new String[]{
             this.name.getText(), this.surname.getText(), this.email.getText(),
                 this.phone.getText(), this.totalPoints+""
@@ -60,40 +64,4 @@ public class UserInfo implements Initializable {
         this.excelService.saveParticipantInfo(info);
         stageService.changeSceneAndPassPointsToEndScreen("resources/view/endScreen.fxml", event, totalPoints);
     }
-
-//    public void saveParticipantInfo() {
-//        try {
-//            fis = new FileInputStream("src/resources/entities/Participants.xlsx");
-//            wb = WorkbookFactory.create(fis);
-//            sh = wb.getSheet("Sheet1");
-//            lastRow = sh.getLastRowNum();
-//            row = sh.createRow(lastRow + 1);
-//
-//            cell1 = row.createCell(0);
-//            cell2 = row.createCell(1);
-//            cell3 = row.createCell(2);
-//            cell4 = row.createCell(3);
-//
-//            cell1.setCellValue(name.getText());
-//            cell2.setCellValue(surname.getText());
-//            cell3.setCellValue(email.getText());
-//            cell4.setCellValue(phone.getText());
-//
-//            fos = new FileOutputStream("src/resources/entities/Participants.xlsx");
-//            wb.write(fos);
-//            fos.flush();
-//            fos.close();
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.bindEndButton();
-    }
-
 }

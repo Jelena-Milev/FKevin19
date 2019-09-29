@@ -57,7 +57,7 @@
                 <Image url="@../img/fKevinHead.png" />
             </image>
         </ImageView>
-        <Button fx:id="pressSpace" onAction="#buttonPressed" mnemonicParsing="false" prefHeight="500" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Button fx:id="pressSpace" mnemonicParsing="false" prefHeight="500" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     </children>
 
 </GridPane>

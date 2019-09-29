@@ -48,8 +48,13 @@ public class EndScreen implements Initializable {
         this.animationService.animationUpDown(head, 1);
         this.animationService.imageRotation(this.orangePlanet, 4, 360);
         this.pressSpace.requestFocus();
-        this.showEndMessage();
-        this.delayForSceneChange();
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(e->{
+            this.showEndMessage();
+            this.delayForSceneChange();
+        });
+        pause.setCycleCount(1);
+        pause.playFromStart();
     }
 
     public void delayForSceneChange() {
@@ -98,10 +103,4 @@ public class EndScreen implements Initializable {
         timeline.play();
     }
 
-    public void buttonPressed(){
-//        System.out.println("Button pressed "+this.totalPoints);
-//        this.showEndMessage();
-//        delayForSceneChange();
-
-    }
 }
