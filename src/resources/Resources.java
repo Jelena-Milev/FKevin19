@@ -26,7 +26,7 @@ public class Resources {
 
     public static final int maxPoints = (lowDifficultyQuestionPoints * numberOfLowQuestions) + (medDifficultyQuestionPoints * numberOfMediumQuestions) + (higDifficultyQuestionPoints * numberOfHighQuestions);
 
-    public static int gameDurationSeconds = 30;
+    public static int gameDurationSeconds = 90;
 
 
 
