@@ -6,9 +6,7 @@ import com.google.gson.stream.JsonReader;
 import resources.Resources;
 import resources.entities.ClosedQuestion;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Random;
@@ -72,9 +70,11 @@ public class QuestionService {
 
     private JsonElement getJsonQuestions() {
         JsonElement jsonQuestions = null;
-        try (JsonReader reader = new JsonReader(new FileReader(Resources.DATA_LOCATION+this.fileName))) {
-            JsonElement fileContent = gson.fromJson(reader, JsonObject.class);
-                jsonQuestions = fileContent.getAsJsonObject().get("ClosedQuestions");
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(Resources.DATA_LOCATION + this.fileName), "UTF8"))) {
+            JsonElement fileContent = gson.fromJson(bufferedReader, JsonObject.class);
+            jsonQuestions = fileContent.getAsJsonObject().get("ClosedQuestions");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
